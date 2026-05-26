@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import '../controllers/place_controller.dart';
+import '../models/place_model.dart';
+import '../widgets/place_card.dart';
+import 'details_screen.dart';
+
+class PlacesScreen extends StatefulWidget {
+  const PlacesScreen({super.key});
+
+  @override
+  State<PlacesScreen> createState() => _PlacesScreenState();
+}
+
+class _PlacesScreenState extends State<PlacesScreen> {
+  List<PlaceModel> filteredPlaces = PlaceController.places;
+
+  void searchPlaces(String value) {
+    setState(() {
+      filteredPlaces = PlaceController.places.where((place) {
+        return place.name.toLowerCase().contains(value.toLowerCase());
+      }).toList();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          TextField(
+            onChanged: searchPlaces,
+            decoration: const InputDecoration(
+              hintText: 'Search place...',
+              prefixIcon: Icon(Icons.search),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredPlaces.length,
+              itemBuilder: (context, index) {
+                return PlaceCard(
+                  place: filteredPlaces[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => DetailsScreen(
+                          place: filteredPlaces[index],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

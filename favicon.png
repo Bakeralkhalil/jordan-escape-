@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            const Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage(
+                  'assets/images/ajloun.jpg',
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'About App',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Jordan Escape is a tourism application developed using Flutter to help users explore beautiful destinations in Jordan.',
+              style: TextStyle(
+                fontSize: 18,
+                height: 1.6,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Developer Information',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    'Name: Baker Alkhalil ',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Jordan Escape',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,164 @@
+import 'package:flutter/material.dart';
+import '../controllers/place_controller.dart';
+import '../widgets/place_card.dart';
+import 'details_screen.dart';
+import 'places_screen.dart';
+import 'about_screen.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> pages = [
+      homeContent(),
+      const PlacesScreen(),
+      const AboutScreen(),
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Jordan Escape'),
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: const Color(0xffF4F7FA),
+          child: ListView(
+            children: const [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xff0F4C5C),
+                      Color(0xff1B6B7A),
+                    ],
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    'Jordan Escape',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              ListTile(
+                leading: Icon(Icons.travel_explore),
+                title: Text('Explore'),
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text('About'),
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: pages[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        selectedItemColor: const Color(0xff0F4C5C),
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        elevation: 10,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.travel_explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'About',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget homeContent() {
+    final places = PlaceController.places;
+
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xffEAF4F4),
+            Color(0xffD9E4EC),
+            Color(0xffF8F9FA),
+          ],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            const Text(
+              'Discover Jordan',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff0F4C5C),
+              ),
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              'Explore beautiful destinations across Jordan',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: places.length,
+                itemBuilder: (context, index) {
+                  return PlaceCard(
+                    place: places[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DetailsScreen(
+                            place: places[index],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

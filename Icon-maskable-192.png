@@ -1,0 +1,48 @@
+import '../models/place_model.dart';
+import '../models/category_model.dart';
+
+class PlaceController {
+  static List<CategoryModel> categories = [
+    CategoryModel(title: 'Nature'),
+    CategoryModel(title: 'Historical'),
+    CategoryModel(title: 'Adventure'),
+    CategoryModel(title: 'Relax'),
+  ];
+
+  static List<PlaceModel> places = [
+    PlaceModel(
+      name: 'Ajloun Forest',
+      city: 'Ajloun',
+      category: 'Nature',
+      image: 'assets/images/ajloun.jpg',
+      description: 'Beautiful forest with fresh air and hiking trails.',
+      rating: 4.8,
+    ),
+    PlaceModel(
+      name: 'Umm Qais',
+      city: 'Irbid',
+      category: 'Historical',
+      image: 'assets/images/ummqais.jpg',
+      description: 'Ancient Roman ruins with amazing views.',
+      rating: 4.7,
+    ),
+    PlaceModel(
+      name: 'Wadi Rum',
+      city: 'Wadi Rum',
+      category: 'Adventure',
+      image: 'assets/images/wadirum.jpg',
+      description: 'Desert adventures and jeep tours.',
+      rating: 4.9,
+    ),
+    PlaceModel(
+      name: 'Petra',
+      city: 'petra',
+      category: 'Historical',
+      image:
+          'https://images.unsplash.com/photo-1579606032821-4e6161c81bd3?q=80&w=1200',
+      description:
+          'Little Petra is a hidden archaeological site near Petra with beautiful rock-cut architecture.',
+      rating: 4.8,
+    ),
+  ];
+}
